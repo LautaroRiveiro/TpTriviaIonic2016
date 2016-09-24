@@ -1,6 +1,23 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
 
+    <input type="button" value="EMPEZAR" ng-click="Empezar()">
+
+    <div class="card">
+      <div class="item item-text-wrap pregunta">
+        {{pregunta.pregunta}}
+      </div>
+    </div>
+
+    <div ng-repeat="(key, opcion) in [1,2,3]">
+        <button class="button button-block button-positive opcion">{{opcion}}</button>
+    </div>
+    
+
+
+
+    <!-- A PARTIR DE ACÁ, BORRAR!! -->
+
     <!-- Hago una iteración de cada pregunta almacenada en mi array de preguntas -->
     <div ng-repeat="pregunta in infofirebase">
           {{pregunta.pregunta}}

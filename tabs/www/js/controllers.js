@@ -5,10 +5,10 @@ angular.module('starter.controllers', [])
     //Creo un objeto referencia a la BD en Firebase, a la 'tabla' de Preguntas
     var preguntasRef = new Firebase('https://triviapp-c9b77.firebaseio.com/preguntas');
     
-    
     //Recupero de Firebase todas las preguntas, almacenándolas en un array que contiene objetos pregunta.
     $scope.infofirebase = [];
     $scope.respuestasCorrectas = {};
+    $scope.pregunta = {};
     
     preguntasRef.on('child_added', function(snapshot){
         $timeout(function(){
@@ -17,7 +17,19 @@ angular.module('starter.controllers', [])
             $scope.respuestasCorrectas[pregunta.id] = pregunta.respuesta;
         });
     });    
-    
+
+    //Mostrar por consola lo que está almacenado en infofirebase
+    $scope.Empezar = function(){
+      //No sé cómo hacer para esperar a que se carguen todas las preguntas del Firebase y así sacar el length.
+      var aleatoria = Math.floor((Math.random() * 4));
+      //Muestro que tomé el JSON de una pregunta
+      console.info($scope.infofirebase[aleatoria]);
+      //Se lo asigno a la variable $scope.pregunta
+      $scope.pregunta = $scope.infofirebase[aleatoria];
+      //Muestro que lo asigné correctamente, y que ahora está cargada con una pregunta aleatoria
+      console.info($scope.pregunta);
+    }
+
     
     //Creo un objeto de respuestas elegidas, donde dinámicamente voy a ir almacenando las respuestas seleccionadas.
     $scope.respuestasElegidas = {};

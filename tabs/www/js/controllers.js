@@ -4,6 +4,7 @@ angular.module('starter.controllers', [])
   
     //Creo un objeto referencia a la BD en Firebase, a la 'tabla' de Preguntas
     var preguntasRef = new Firebase('https://triviapp-c9b77.firebaseio.com/preguntas');
+    var partidasRef = new Firebase('https://triviapp-c9b77.firebaseio.com/partidas');
     
     //Recupero de Firebase todas las preguntas, almacenándolas en un array que contiene objetos pregunta.
     $scope.infofirebase = [];
@@ -116,7 +117,9 @@ angular.module('starter.controllers', [])
         resultados.nombre = "Lautaro"
         resultados.puntaje = contadorAciertos;
         resultados.porcentaje = contadorAciertos/contadorPreguntas*100;
+        resultados.timestamp = Firebase.ServerValue.TIMESTAMP;
         alert(JSON.stringify(resultados));
+        partidasRef.push(resultados);
         //Pongo en cero las variables necesarias para volver a empezar
         contadorAciertos = 0;
         contadorPreguntas = 0;
@@ -125,11 +128,21 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
+.controller('ChatsCtrl', function($scope, $timeout) {
+    var partidasRef = new Firebase('https://triviapp-c9b77.firebaseio.com/partidas');
+
+    $scope.partidas = [];
+
+    partidasRef.on('child_added', function(snapshot){
+        $timeout(function(){
+            var partida = snapshot.val();
+            $scope.partidas.push(partida);
+            // var message = snapshot.val();
+            // var fecha = new Date(message.fechaIngreso);
+            // var hora = fecha.getHours();
+            // var minutos = fecha.getMinutes();
+        });
+    }); 
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {

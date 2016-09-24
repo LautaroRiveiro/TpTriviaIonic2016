@@ -1,38 +1,24 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
 
-    <input type="button" value="EMPEZAR" ng-click="Empezar()">
+    <input type="button" id="botonEmpezar" class="button button-block button-positive" value="EMPEZAR" ng-click="HacerPregunta()" ng-show="sePuedeEmpezar && mostrarBotonEmpezar">
 
-    <div class="card">
-      <div class="item item-text-wrap pregunta">
-        {{pregunta.pregunta}}
-      </div>
-    </div>
-
-    <div ng-repeat="(key, opcion) in [1,2,3]">
-        <button class="button button-block button-positive opcion">{{opcion}}</button>
-    </div>
-    
-
-
-
-    <!-- A PARTIR DE ACÁ, BORRAR!! -->
-
-    <!-- Hago una iteración de cada pregunta almacenada en mi array de preguntas -->
-    <div ng-repeat="pregunta in infofirebase">
-          {{pregunta.pregunta}}
-          <!-- Por cada pregunta hago una iteración de cada una de sus opciones -->
-          <div ng-repeat="(key, opcion) in pregunta.opciones">
-              <span>{{opcion}}</span><input type="radio" ng-model="respuestasElegidas[pregunta.id]" value={{key}}>
+    <div ng-show="!mostrarBotonEmpezar">
+        <div class="card">
+          <div class="item item-text-wrap pregunta">
+            {{pregunta.pregunta}}
           </div>
-          <br><br>
+        </div>
+
+        <div ng-repeat="(key, opcion) in pregunta.opciones">
+            <button id="respuesta" ng-class="{'button button-block button-positive opcion': acierto!=key, 'button button-block button-balanced opcion': acierto==key, 'button button-block button-assertive opcion': respuestaIncorrecta==key}" ng-click="Enviar(key)">{{opcion}}</button>
+        </div>
+
+        <!-- Muestro el valor contenido en las variables respuestasElegidas y respuestasCorrectas -->
+        <div class="card">
+          <p>Respuesta correcta: {{pregunta.respuesta}}</p>
+          <p>Preguntas que fueron saliendo: {{preguntasHechas}}</p>
+        </div>
     </div>
-
-    <input type="button" value="enviar" ng-click="Enviar()">    
-      
-      <!-- Muestro el valor contenido en las variables respuestasElegidas y respuestasCorrectas -->
-    <p>Respuestas elegidas : {{respuestasElegidas}}</p>
-    <p>Respuestas correctas: {{respuestasCorrectas}}</p>
-
   </ion-content>
 </ion-view>

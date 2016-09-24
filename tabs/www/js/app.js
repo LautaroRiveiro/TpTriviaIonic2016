@@ -19,7 +19,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 .config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
-    .state('tab', {
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl'
+  })
+
+  .state('tab', {
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html'
@@ -64,6 +70,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   });
 
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/login');
 
 });

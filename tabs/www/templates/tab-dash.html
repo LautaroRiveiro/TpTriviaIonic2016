@@ -1,8 +1,9 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
-
-    <input type="button" id="botonEmpezar" class="button button-block button-positive" value="EMPEZAR" ng-click="HacerPregunta()" ng-show="sePuedeEmpezar && mostrarBotonEmpezar">
-
+    <div ng-show="sePuedeEmpezar && mostrarBotonEmpezar">
+        <br><br><br><br><br>
+        <input type="button" id="botonEmpezar" class="button button-block button-positive" value="EMPEZAR" ng-click="HacerPregunta()">
+    </div>
     <div ng-show="!mostrarBotonEmpezar">
         <div class="card">
           <div class="item item-text-wrap pregunta">

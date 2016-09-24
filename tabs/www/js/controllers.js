@@ -135,12 +135,14 @@ angular.module('starter.controllers', [])
 
     partidasRef.on('child_added', function(snapshot){
         $timeout(function(){
-            var partida = snapshot.val();
+            var partida = {};
+            partida = snapshot.val();
+            partida.fecha = new Date(partida.timestamp);
+            partida.dia = partida.fecha.getDate()+"/"+partida.fecha.getMonth()+"/"+partida.fecha.getFullYear();
+            partida.hora = partida.fecha.getHours()+":"+(partida.fecha.getMinutes()<10?'0':'')+partida.fecha.getMinutes();
+            partida.porcentaje = Math.round(partida.porcentaje * 100) / 100;
+            console.log(partida);
             $scope.partidas.push(partida);
-            // var message = snapshot.val();
-            // var fecha = new Date(message.fechaIngreso);
-            // var hora = fecha.getHours();
-            // var minutos = fecha.getMinutes();
         });
     }); 
 })
